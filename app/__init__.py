@@ -11,7 +11,7 @@ app.register_blueprint(cth_api)
 yml_files = ["data/prompts/prompts.yml"]
 csv_files = ["data/csv/file_info.csv"]
 template_mds = ["data/templates/template.md"]
-output_dir = "output_test"
+output_dir = "output"
 
 Climate_Tech_Handbook = None  # initialize as None
 
