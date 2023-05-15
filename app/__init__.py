@@ -15,6 +15,8 @@ output_dir = "output_test"
 
 Climate_Tech_Handbook = None  # initialize as None
 
+GENERATORS = {}
+
 
 def create_climate_tech_handbook():
     global Climate_Tech_Handbook  # access the global variable
