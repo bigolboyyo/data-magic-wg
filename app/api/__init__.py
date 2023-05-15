@@ -1,3 +1,3 @@
 from flask import Blueprint
 
-api_bp = Blueprint("api_bp", __name__)
+cth_api = Blueprint("cth_api", __name__)
