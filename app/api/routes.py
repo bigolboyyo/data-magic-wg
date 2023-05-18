@@ -1,6 +1,7 @@
 from flask import jsonify, request
 from app.api import cth_api
-from app import Climate_Tech_Handbook, GENERATORS
+
+# from app import Climate_Tech_Handbook, GENERATORS
 from utils.generator_utils import edit_file
 from utils.utils import create_generator
 from utils.api_utils import get_generator

@@ -1,12 +1,10 @@
 from flask import Flask
-from app.api.routes import cth_api
 from dotenv import load_dotenv
-from utils.utils import get_env_vars, create_generator
+from .utils.utils import get_env_vars, create_generator
 
 load_dotenv()
 
 app = Flask(__name__)
-app.register_blueprint(cth_api)
 
 yml_files = ["data/prompts/prompts.yml"]
 csv_files = ["data/csv/file_info.csv"]
@@ -23,3 +21,14 @@ def create_climate_tech_handbook():
     Climate_Tech_Handbook = create_generator(
         yml_files, csv_files, template_mds, output_dir
     )
+
+
+# You could consider this our main() method for the Flask app initialization
+async def initialize():
+    await create_climate_tech_handbook()
+
+
+# Import cth_api after the definitions of Climate_Tech_Handbook and GENERATORS
+from .api.routes import cth_api
+
+app.register_blueprint(cth_api)

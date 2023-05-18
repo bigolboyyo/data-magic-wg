@@ -14,7 +14,7 @@
 #     else:
 #         return None, None
 import os
-from models.content_generator import ContentGenerator
+from ..models.content_generator import ContentGenerator
 
 
 def get_env_vars(*keys, exit_on_missing=True):
@@ -53,5 +53,3 @@ def create_generator(yml_files, csv_files, template_mds, output_dir):
         output_dir=output_dir,
     )
     return content_generator
-
-
