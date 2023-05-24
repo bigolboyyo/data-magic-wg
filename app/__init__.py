@@ -1,36 +1,31 @@
-from flask import Flask
+from flask import Flask, g, abort, request
 from dotenv import load_dotenv
-from .utils.utils import get_env_vars, create_generator
+from .utils.utils import get_env_vars, create_generator, get_generator
+
+import json
+import os
 
 load_dotenv()
 
 app = Flask(__name__)
 
-yml_files = ["data/prompts/prompts.yml"]
-csv_files = ["data/csv/file_info.csv"]
-template_mds = ["data/templates/template.md"]
-output_dir = "output"
+def load_climate_tech_handbook():
+    if os.path.exists('generator.json'):
+        with open('generator.json', 'r') as f:
+            data = json.load(f)
+        g.climate_tech_handbook = create_generator(**data[0]["generator_data"])
 
-Climate_Tech_Handbook = None  # initialize as None
+@app.before_first_request
+def load_default_generator():
+    load_climate_tech_handbook()
 
-GENERATORS = {}
-
-
-def create_climate_tech_handbook():
-    global Climate_Tech_Handbook  # access the global variable
-    Climate_Tech_Handbook = create_generator(
-        yml_files, csv_files, template_mds, output_dir
-    )
-    
-    
-
-
-# You could consider this our main() method for the Flask app initialization
-async def initialize():
-    await create_climate_tech_handbook()
-
-
-# Import cth_api after the definitions of Climate_Tech_Handbook and GENERATORS
-from .api.routes import cth_api
-
-app.register_blueprint(cth_api)
+@app.before_request
+def check_generator():
+    try:
+        generator_info = get_generator(request.get_json())
+        if generator_info[0]:
+            g.generator = generator_info[0]
+        else:
+            g.generator = g.climate_tech_handbook
+    except Exception as e:
+        abort(400, str(e))
