@@ -21,6 +21,8 @@ def create_climate_tech_handbook():
     Climate_Tech_Handbook = create_generator(
         yml_files, csv_files, template_mds, output_dir
     )
+    
+    
 
 
 # You could consider this our main() method for the Flask app initialization
