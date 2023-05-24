@@ -1,3 +1,4 @@
 from flask import Blueprint
 
-cth_api = Blueprint("cth_api", __name__)
+api_bp = Blueprint("api_bp", __name__)
+fileapi_bp = Blueprint("fileapi_bp", __name__)
