@@ -5,10 +5,6 @@ sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 from utils.utils import get_env_vars, create_generator, get_generator
 import pdb
 
-yml_files = ["data/prompts/prompts.yml"]
-csv_files = ["data/csv/file_info.csv"]
-template_mds = ["data/templates/template.md"]
-output_dir = "leif_test"
 
 @fileapi_bp.before_request
 def check_generator():

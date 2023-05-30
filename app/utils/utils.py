@@ -14,7 +14,7 @@
 #     else:
 #         return None, None
 import os
-from models.content_generator import ContentGenerator
+from ..models.content_generator import ContentGenerator
 from utils.get_file_path import get_file_path
 from flask import Flask, request, jsonify
 import pdb,json
