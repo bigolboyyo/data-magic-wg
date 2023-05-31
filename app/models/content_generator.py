@@ -1,3 +1,4 @@
+import pdb,json
 from utils.generator_utils import (
     stage_content,
     save_progress,
@@ -11,8 +12,15 @@ from utils.generator_utils import (
     insert_image,
     add_section,
     extract_keys_from_template,
+    remove_tags,
+    delete_image,
+    add_contents,
+    remove_all_contents,
+    update_title_position,
+    update_yaml_front_matter,
+    remove_yaml_front_matter
 )
-
+from utils.get_file_path import get_file_path
 
 class ContentGenerator:
     def __init__(
@@ -48,7 +56,28 @@ class ContentGenerator:
             self.template_mds,
             self.output_dir,
         )
-
+        #take default generator from file (generator.json)
+        # full_path = get_file_path('generator.json')
+        # f = open(full_path, "r+")
+        # jsondata = json.loads(f.read())
+        # defaultgenerator=[gen for gen in jsondata if gen['generator_id']==1]
+        # pdb.set_trace()
+        # ## PREFERENCE GIVEN to generator defined in json file if it doesnt exists in json file fallback to hardcoded val
+        # if defaultgenerator[0]["generator_data"]:
+        #     prompts, file_info, templates = stage_content(
+        #         defaultgenerator[0]["generator_data"]["yml_files"],
+        #         defaultgenerator[0]["generator_data"]["csv_files"],
+        #         defaultgenerator[0]["generator_data"]["template_mds"],
+        #         defaultgenerator[0]["generator_data"]["output_dir"],
+        #     )
+        # else:
+        #     prompts, file_info, templates = stage_content(
+        #         self.yml_files,
+        #         self.csv_files,
+        #         self.template_mds,
+        #         self.output_dir,
+        #     )
+        # pdb.set_trace()
         validate_and_assign(self, prompts, file_info, templates)
 
     def handle_progress(self, save_or_load, progress=None):
@@ -101,11 +130,26 @@ class ContentGenerator:
     def edit_file(self, file_path, markdown, start_line=None, end_line=None):
         edit_file(file_path, markdown, start_line, end_line)
 
-    def add_tags(self, file_path, tags):
-        add_tags(file_path, tags)
+    def add_tags(self, directory_path, tags):
+        add_tags(directory_path, tags)
+
+    def add_contents(self, directory_path, yaml_front_matter):
+        add_contents(directory_path, yaml_front_matter)
 
     def insert_image(self, file_path, image_path, caption, position):
         insert_image(file_path, image_path, caption, position)
 
     def add_section(self, file_path, header_text, position):
         add_section(file_path, header_text, position)
+    def remove_tags(self, file_path, tag_name):
+        remove_tags(file_path, tag_name)
+    def delete_image(self, file_path, image_path, caption):
+        delete_image(file_path, image_path, caption)
+    def remove_all_contents(self, file_path):
+        remove_all_contents(file_path)
+    def update_title_position(self, file_path):
+        update_title_position(file_path)
+    def update_yaml_front_matter(self, directory_path):
+        update_yaml_front_matter(directory_path)
+    def remove_yaml_front_matter(self, directory_path):
+        remove_yaml_front_matter(directory_path)
