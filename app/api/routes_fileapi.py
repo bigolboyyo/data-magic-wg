@@ -48,19 +48,11 @@ async def edit_file_endpoint():
 def add_tags_endpoint():
     # get the file path and tags from the request data
     data = request.get_json()
-    # file_path = data['file_path']
     tags = data['tags']
 
-     # print the file path for debugging purposes
-    # print("file path:", file_path)
-    # import os
     file_path = os.path.join(os.getcwd(),'output', 'solution-abandoned-farmland-restoration.md')
     print("file path:", file_path)
 
-    # call the add_tags method
-    # generator = create_generator(yml_files, csv_files, template_mds, output_dir)
-    # if g.reqgenerator:
-    #     generator=g.reqgenerator
     Climate_Tech_Handbook.add_tags(file_path, tags)
 
     # return a response indicating success
@@ -99,5 +91,3 @@ def add_section_endpoint():
 
     # return a response indicating success
     return jsonify({'message': 'Section added successfully'})
-
-
